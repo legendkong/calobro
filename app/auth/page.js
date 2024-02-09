@@ -1,10 +1,23 @@
+'use client';
 import React from 'react';
 import { KeyRound, Google } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
+import { supabaseBrowser } from '@/lib/supabase/browser';
 
 export default function page() {
+  const handleLoginWithOAuth = (provider) => {
+    const supabase = supabaseBrowser();
+
+    supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: location.origin + '/auth/callback',
+      },
+    });
+  };
+
   return (
     <div className="flex items-center justify-center w-full h-screen">
       <div className="w-90 h-76 rounded-md border p-5 relative bg-slate-900 flex flex-col items-center">
@@ -26,6 +39,7 @@ export default function page() {
         <Button
           className="w-full flex items-center gap-2 mt-5"
           variant="outline"
+          onClick={() => handleLoginWithOAuth('google')}
         >
           <FcGoogle />
           Google
