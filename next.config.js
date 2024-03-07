@@ -24,6 +24,14 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'lh3.googleusercontent.com',
+        protocol: 'https',
+      },
+    ],
+  },
 };
 
 module.exports = withPWA(nextConfig);
