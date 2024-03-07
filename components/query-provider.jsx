@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // whenever fetch data, go into cache, if want to refresh cache, either invalid query or refresh the page
