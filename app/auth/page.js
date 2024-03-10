@@ -5,15 +5,18 @@ import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import Image from 'next/image';
 import { supabaseBrowser } from '@/lib/supabase/browser';
+import { useSearchParams } from 'next/navigation';
 
-export default function page() {
+export default function Page() {
+  const params = useSearchParams();
+  const next = params.get('next');
   const handleLoginWithOAuth = (provider) => {
     const supabase = supabaseBrowser();
 
     supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: location.origin + '/auth/callback',
+        redirectTo: location.origin + '/auth/callback?next=' + next,
       },
     });
   };
