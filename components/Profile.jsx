@@ -14,20 +14,23 @@ export default function Profile() {
   return (
     <div>
       {!data?.id ? (
-        <Link href="/auth">
+        <Link href="/auth" className="animate-fade">
           <Button variant="outline">Sign In</Button>
         </Link>
       ) : (
-        <>
-          <h1>{data.display_name}</h1>
+        <div
+          className="profile-container"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <h1 style={{ marginRight: '10px' }}>{data.display_name}</h1>
           <Image
             src={data.image_url || ''}
             alt={data.display_name || ''}
             width={50}
             height={50}
-            className="rounded-full"
+            className="rounded-full animate-fade"
           />
-        </>
+        </div>
       )}
     </div>
   );
