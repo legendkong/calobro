@@ -47,7 +47,7 @@ export default function Price() {
   ];
 
   return (
-    <div>
+    <div className="mb-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {prices.map((price, index) => {
           const isPopular = index === 1;

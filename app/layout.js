@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 import QueryProvider from '@/components/query-provider';
 import Navbar from '@/components/Navbar';
+import MobileNavbar from '@/components/MobileNavbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,10 +24,17 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <main className="max-w-6xl min-h-screen mx-auto py-10 space-y-10">
-              <Navbar />
-              {children}
-            </main>
+            <div className="flex flex-col items-center min-h-screen">
+              <header className="text-center py-5 text-xl font-bold">
+                🥦 Calobro.
+              </header>
+              <main className="max-w-6xl w-full px-4 py-2 mx-auto space-y-10">
+                {/* <Navbar /> */}
+
+                {children}
+              </main>
+              <MobileNavbar />
+            </div>
           </ThemeProvider>
         </QueryProvider>
       </body>
