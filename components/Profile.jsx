@@ -11,6 +11,7 @@ export default function Profile() {
   if (isFetching) {
     return <></>;
   }
+
   return (
     <div>
       {!data?.id ? (
@@ -23,13 +24,19 @@ export default function Profile() {
           style={{ display: 'flex', alignItems: 'center' }}
         >
           <h1 style={{ marginRight: '10px' }}>{data.display_name}</h1>
-          <Image
-            src={data.image_url || ''}
-            alt={data.display_name || ''}
-            width={50}
-            height={50}
-            className="rounded-full animate-fade"
-          />
+          {data?.image_url ? (
+            <Image
+              src={data.image_url || ''}
+              alt={data.display_name || ''}
+              width={50}
+              height={50}
+              className="rounded-full animate-fade ring-2"
+            />
+          ) : (
+            <div className="h-[50px] w-[50px] flex items-center justify-center ring-2 rounded-full text-2xl font-bold">
+              <h1>{data.email[0].toUpperCase()}</h1>
+            </div>
+          )}
         </div>
       )}
     </div>
