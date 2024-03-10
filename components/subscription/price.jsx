@@ -6,42 +6,46 @@ import { cn } from '@/lib/utils';
 export default function Price() {
   const prices = [
     {
-      title: 'Hobby',
-      description: 'Start your next side project',
+      title: 'Starter',
+      description:
+        'Kickstart your wellness journey with essential calorie tracking and basic insights.',
       benefits: [
-        'Improved productivity',
-        'Enhanced performance',
-        'Cost savings',
-        'Improved communication',
-        'Enhanced collaboration',
+        'Basic calorie tracking',
+        'Food database access',
+        'Standard exercise routines',
+        'Community support',
+        'Daily wellness tips',
       ],
-      amount: 10,
+      amount: 5,
     },
     {
-      title: 'Pro',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      title: 'Premium',
+      description:
+        'Elevate your fitness with advanced features, including image-to-text food recognition.',
       benefits: [
-        'Improved productivity',
-        'Enhanced performance',
-        'Cost savings',
-        'Improved communication',
-        'Enhanced collaboration',
+        'All Starter benefits',
+        'Food recognition from camera',
+        'Nutritional insights and advice',
+        'Goal setting and tracking',
+        'Ad-free experience',
       ],
-      amount: 20,
+      amount: 15,
     },
     {
-      title: 'Enterprise',
-      description: 'asdasdasdafw',
+      title: 'Elite',
+      description:
+        'Achieve your ultimate fitness goals with personalized coaching and exclusive content.',
       benefits: [
-        'Improved productivity',
-        'Enhanced performance',
-        'Cost savings',
-        'Improved communication',
-        'Enhanced collaboration',
+        'All Premium benefits',
+        '1-on-1 online workout sessions',
+        'Personalized meal and workout plans',
+        'Access to premium content and webinars',
+        'Early access to new features',
       ],
-      amount: 100,
+      amount: 30,
     },
   ];
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
