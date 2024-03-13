@@ -79,7 +79,7 @@ export default function Page() {
       <p className="text-sm">🏋️🏃🏻‍♂️🏊🏻🚴🏽</p>
       <p className="mt-1 text-green-600">You are doing great this week! 💪🏼</p>
       {/* New Full-Screen Bottom Div */}
-      <div className="fixed inset-x-0 bottom-0 top-1/2 bg-lime-200 rounded-t-3xl overflow-hidden flex flex-col items-center">
+      <div className="fixed inset-x-8 bottom-0 top-1/2 bg-lime-200 rounded-t-3xl overflow-hidden flex flex-col items-center">
         <div className="flex justify-between items-center w-80 rounded-xl p-2 border-2 border-white mt-5 bg-lime-100">
           <div className="p-2">
             <p className="text-gray-500">
@@ -97,19 +97,19 @@ export default function Page() {
         <div className="w-full max-w-4xl h-64 rounded-xl shadow-lg p-4">
           <p className="text-xs text-left -mb-5 text-gray-700">Past 7 days</p>
           <div className="flex justify-between items-end h-full">
-            <div className="w-1/12 bg-green-600 h-3/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-green-600 h-3/6 rounded"></div>
             {/* Example bar */}
-            <div className="w-1/12 bg-green-600 h-4/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-green-600 h-4/6 rounded"></div>
             {/* Example bar */}
-            <div className="w-1/12 bg-red-600 h-5/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-red-600 h-5/6 rounded"></div>
             {/* Example bar */}
-            <div className="w-1/12 bg-green-600 h-2/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-green-600 h-2/6 rounded"></div>
             {/* Example bar */}
-            <div className="w-1/12 bg-red-600 h-5/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-red-600 h-5/6 rounded"></div>
             {/* Example bar */}
-            <div className="w-1/12 bg-green-600 h-2/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-green-600 h-2/6 rounded"></div>
             {/* Example bar */}
-            <div className="w-1/12 bg-green-600 h-3/6 rounded"></div>{' '}
+            <div className="w-1/12 bg-green-600 h-3/6 rounded"></div>
             {/* Example bar */}
           </div>
         </div>
