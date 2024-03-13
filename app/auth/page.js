@@ -22,15 +22,17 @@ export default function Page() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen">
-      <div className="w-90 h-76 rounded-md border p-5 relative bg-slate-900 flex flex-col items-center">
+    <div className="flex justify-center w-full h-screen relative">
+      <div className="glowBox absolute inset-0 z-0"></div>
+      <div className="w-96 h-80 rounded-3xl border p-5 relative bg-slate-800 flex flex-col items-center mt-32 z-10 relative">
         <div className="flex items-center gap-2">
-          <KeyRound />
-          <h1 className="text-xl font-bold">Welcome to Calobro!</h1>
+          <KeyRound color="gray" />
+          <h1 className="text-xl font-bol fod text-gray-300">
+            Welcome to Calobro
+          </h1>
         </div>
         {/* Center the image and reduce vertical spacing */}
         <div className=" flex justify-center items-center">
-          {/* Adjust `my-2` for desired gap */}
           <Image
             src="/ios/256.png"
             width={150}
@@ -48,7 +50,6 @@ export default function Page() {
           Google
         </Button>
       </div>
-      <div className="glowBox -z-10"></div>
     </div>
   );
 }

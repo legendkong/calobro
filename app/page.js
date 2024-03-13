@@ -7,8 +7,9 @@ export default function Home() {
     <>
       <div>
         <Link href="/dashboard">/dashboard</Link>
-        <Link href="/profile">/profile</Link>
+        <Link href="/camera">/camera</Link>
         <Link href="/subscription">/subscription</Link>
+        <Link href="/profile">/profile</Link>
       </div>
     </>
   );

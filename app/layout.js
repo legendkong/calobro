@@ -20,17 +20,16 @@ export default function RootLayout({ children }) {
         <QueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
             <div className="flex flex-col items-center min-h-screen">
               <header className="text-center py-5 text-xl font-bold">
-                🥦 Calobro.
+                🥦 Calo<span className="text-orange-500">bro.</span>
               </header>
               <main className="max-w-6xl w-full px-4 py-2 mx-auto space-y-10">
                 {/* <Navbar /> */}
-
                 {children}
               </main>
               <MobileNavbar />

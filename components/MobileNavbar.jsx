@@ -1,20 +1,45 @@
+'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Home, Camera, Zap, PersonStanding } from 'lucide-react';
 
 const MobileNavbar = () => {
+  const router = useRouter(); // Use useRouter to access the current route
+
+  // A function to determine if a route is the current one and set the color accordingly
+  const getIconColor = (path) =>
+    router.pathname === path ? '#f07400' : '#FFF';
+
   return (
-    <div className="fixed inset-x-0 bottom-0 bg-gray-800 text-white text-center py-2 flex justify-around items-center z-50">
-      <Link href="/dashboard">
-        <span className="flex flex-col items-center">Home</span>
-      </Link>
-      <Link href="/camera">
-        <span className="flex flex-col items-center">Camera</span>
-      </Link>
-      <Link href="/subscription">
-        <span className="flex flex-col items-center">Pricing</span>
-      </Link>
-      <Link href="/profile">
-        <span className="flex flex-col items-center">Profile</span>
-      </Link>
+    <div className="fixed inset-x-0 bottom-0 bg-gray-800 text-white text-center py-5 flex justify-around items-center z-50 divide-x divide-gray-600">
+      <div className="flex flex-grow justify-center items-center border-r border-gray-600">
+        <Link href="/dashboard">
+          <span className="flex flex-col items-center">
+            <Home color={getIconColor('/dashboard')} />
+          </span>
+        </Link>
+      </div>
+      <div className="flex flex-grow justify-center items-center border-r border-gray-600">
+        <Link href="/camera">
+          <span className="flex flex-col items-center">
+            <Camera color={getIconColor('/camera')} />
+          </span>
+        </Link>
+      </div>
+      <div className="flex flex-grow justify-center items-center border-r border-gray-600">
+        <Link href="/subscription">
+          <span className="flex flex-col items-center">
+            <Zap color={getIconColor('/subscription')} />
+          </span>
+        </Link>
+      </div>
+      <div className="flex flex-grow justify-center items-center">
+        <Link href="/profile">
+          <span className="flex flex-col items-center">
+            <PersonStanding color={getIconColor('/profile')} />
+          </span>
+        </Link>
+      </div>
     </div>
   );
 };
