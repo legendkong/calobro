@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import useUser from '@/app/hook/useUser';
@@ -9,17 +9,84 @@ import { useRouter } from 'next/navigation';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 import { usePathname } from 'next/navigation';
 import { protectedPaths } from '@/lib/constant';
+import GoalSettingModal from '@/components/GoalSettingModal';
 
 export default function Page() {
+  const supabase = supabaseBrowser();
+  const [isGoalModalOpen, setIsGoalModalOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    age: '',
+    weight: '',
+    height: '',
+    goal: '',
+  });
+
   const { isFetching, data } = useUser();
   const queryClient = useQueryClient();
   const router = useRouter();
 
   const pathname = usePathname();
 
+  useEffect(() => {
+    if (data?.id) {
+      getAgeWeightHeight();
+    }
+  }, [data?.id]); // Dependency array ensures this effect runs when `data.id` changes
+
   if (isFetching) {
     return <></>;
   }
+
+  const handleGoalSubmit = async ({ age, height, weight, goal }) => {
+    // Here, integrate with Supabase to update the user's profile
+    // Assuming you have a function like `updateUserProfile` to call
+    await updateUserProfile({ age, height, weight, goal });
+    setIsGoalModalOpen(false);
+    setUserDetails({ age, height, weight, goal });
+    // Fetch and update user data displayed on the page
+  };
+
+  const getAgeWeightHeight = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('age, weight, height, goal');
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data) {
+        setUserDetails({
+          age: data[0].age,
+          weight: data[0].weight,
+          height: data[0].height,
+          goal: data[0].goal,
+        });
+      } else {
+        // Handle the case where no data is returned
+        console.log('No matching user profile found.');
+      }
+    } catch (error) {
+      console.error('Failed to fetch user profile:', error.message);
+      // Consider how you might want to handle errors in the UI
+    }
+  };
+
+  const updateUserProfile = async ({ age, height, weight, goal }) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ age: age, height: height, weight: weight, goal: goal })
+        .eq('id', data.id); // Ensure you have the user's ID
+
+      if (error) throw new Error(error.message);
+    } catch (error) {
+      console.error('Failed to update user profile:', error.message);
+      // Consider setting an error state here and displaying it in your UI
+    }
+  };
+
   const handleLogout = async () => {
     const supabase = supabaseBrowser();
     queryClient.clear();
@@ -64,15 +131,15 @@ export default function Page() {
       {/* age, weight and height div */}
       <div className="flex flex-row justify-around items-center bg-lime-100 rounded-lg shadow-md p-4 mt-2 mb-4 w-full max-w-xs">
         <div className="text-center">
-          <p className="font-bold text-xl">{data.age || '27'}</p>
+          <p className="font-bold text-xl">{userDetails.age}</p>
           <p className="text-md">Age</p>
         </div>
         <div className="text-center">
-          <p className="font-bold text-xl">{data.weight || '80'}</p>
+          <p className="font-bold text-xl">{userDetails.weight}</p>
           <p className="text-md">Weight</p>
         </div>
         <div className="text-center">
-          <p className="font-bold text-xl">{data.height || '172'}</p>
+          <p className="font-bold text-xl">{userDetails.height}</p>
           <p className="text-md">Height</p>
         </div>
       </div>
@@ -83,12 +150,20 @@ export default function Page() {
         <div className="flex justify-between items-center w-80 rounded-xl p-2 border-2 border-white mt-5 bg-lime-100">
           <div className="p-2">
             <p className="text-gray-500">
-              <span className="font-bold">Goal:</span> Lose Weight
+              <span className="font-bold">Goal:</span> {userDetails.goal}
             </p>
           </div>
-          <button className="bg-lime-200 text-xs text-gray-500 rounded-full p-2 pl-3 pr-3">
+          <button
+            className="bg-lime-200 text-xs text-gray-500 rounded-full p-2 pl-3 pr-3"
+            onClick={() => setIsGoalModalOpen(true)}
+          >
             Set Goals
           </button>
+          <GoalSettingModal
+            isOpen={isGoalModalOpen}
+            onClose={() => setIsGoalModalOpen(false)}
+            onSubmit={handleGoalSubmit}
+          />
         </div>
         <p className="text-sm mt-3 text-gray-500">
           Log more food to track weekly insights
