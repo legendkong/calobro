@@ -27,7 +27,7 @@ const Modal = ({ isOpen, onClose, title, onConfirm }) => {
             <span>🔍</span> {/* Placeholder for magnifying glass icon */}
             <input
               className="bg-transparent flex-grow p-2 rounded-full"
-              placeholder="Old Change Kee Currypuff "
+              placeholder="Old Chang Kee Currypuff "
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
