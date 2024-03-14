@@ -1,22 +1,36 @@
 'use client';
-import React from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import useUser from '@/app/hook/useUser';
-import Image from 'next/image';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 import { usePathname } from 'next/navigation';
 import { protectedPaths } from '@/lib/constant';
+import { useState } from 'react';
+import Modal from '@/components/SearchModal';
 import {
-  CircularProgressbar,
   buildStyles,
   CircularProgressbarWithChildren,
 } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function Page() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [mealData, setMealData] = useState({
+    Breakfast: '',
+    Lunch: '',
+    Dinner: '',
+  });
+
+  const handleAddFoodClick = (meal) => {
+    setModalTitle(meal);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = (result) => {
+    setMealData({ ...mealData, [modalTitle]: result });
+  };
+
   const now = new Date();
   const options = { weekday: 'short', month: 'short', day: 'numeric' };
   const dateString = now.toLocaleDateString('en-US', options);
@@ -32,6 +46,7 @@ export default function Page() {
   if (isFetching) {
     return <></>;
   }
+
   return (
     <div className="flex flex-col items-center relative">
       <div className="profile-container flex flex-col items-center animate-fade z-10 relative">
@@ -97,7 +112,56 @@ export default function Page() {
         </div>
       </div>
       {/* BOTTOM DIV */}
-      <div className="fixed inset-x-6 bottom-0 top-1/2 bg-lime-200 rounded-t-3xl overflow-hidden flex flex-col items-center"></div>
+      <div className="fixed inset-x-6 bottom-0 top-1/2 bg-lime-200 rounded-t-3xl overflow-hidden flex flex-col items-center p-4 space-y-4 overflow-y-auto mb-28">
+        {/* Breakfast */}
+        <div className="bg-lime-100 rounded-lg shadow pt-3 pb-3 pl-4 pr-4 w-full ">
+          <h2 className="font-bold text-gray-700 text-md mb-2 ">
+            🌅 Breakfast
+          </h2>
+          {/* Thin Divider */}
+          <div className="border-b border-gray-300 my-2"></div>
+          <button
+            className="text-blue-500 font-bold rounded-md"
+            onClick={() => handleAddFoodClick('Breakfast')}
+          >
+            + ADD FOOD
+          </button>
+          {mealData.Breakfast && <p>{mealData.Breakfast}</p>}
+        </div>
+        {/* Lunch */}
+        <div className="bg-lime-100 rounded-lg shadow pt-3 pb-3 pl-4 pr-4 w-full ">
+          <h2 className="font-bold text-gray-700 text-md mb-2 ">🏙️ Lunch</h2>
+          {/* Thin Divider */}
+          <div className="border-b border-gray-300 my-2"></div>
+          <button className="text-blue-500 font-bold rounded-md  ">
+            + ADD FOOD
+          </button>
+        </div>
+        {/* Dinner */}
+        <div className="bg-lime-100 rounded-lg shadow pt-3 pb-3 pl-4 pr-4 w-full ">
+          <h2 className="font-bold text-gray-700 text-md mb-2 ">🌃 Dinner</h2>
+          {/* Thin Divider */}
+          <div className="border-b border-gray-300 my-2"></div>
+          <button className="text-blue-500 font-bold rounded-md  ">
+            + ADD FOOD
+          </button>
+        </div>
+        {/* Exercise */}
+        <div className="bg-lime-100 rounded-lg shadow pt-3 pb-3 pl-4 pr-4 w-full ">
+          <h2 className="font-bold text-gray-700 text-md mb-2 ">🏃🏻‍♂️ Exercise</h2>
+          {/* Thin Divider */}
+          <div className="border-b border-gray-300 my-2"></div>
+          <button className="text-blue-500 font-bold rounded-md  ">
+            + ADD EXERCISE
+          </button>
+        </div>
+      </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={modalTitle}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 }
