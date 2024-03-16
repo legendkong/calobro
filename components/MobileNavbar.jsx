@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Home, Camera, Zap, PersonStanding } from 'lucide-react';
+import { Home, Camera, Zap, PersonStanding, Dumbbell } from 'lucide-react';
 
 const MobileNavbar = () => {
   const router = useRouter(); // Use useRouter to access the current route
@@ -27,13 +27,20 @@ const MobileNavbar = () => {
         </Link>
       </div>
       <div className="flex flex-grow justify-center items-center border-r border-gray-600">
+        <Link href="/trainingplans">
+          <span className="flex flex-col items-center">
+            <Dumbbell color={getIconColor('/trainingplans')} />
+          </span>
+        </Link>
+      </div>
+      <div className="flex flex-grow justify-center items-center border-r border-gray-600">
         <Link href="/subscription">
           <span className="flex flex-col items-center">
             <Zap color={getIconColor('/subscription')} />
           </span>
         </Link>
       </div>
-      <div className="flex flex-grow justify-center items-center">
+      <div className="flex flex-grow justify-center items-center border-r border-gray-600">
         <Link href="/profile">
           <span className="flex flex-col items-center">
             <PersonStanding color={getIconColor('/profile')} />

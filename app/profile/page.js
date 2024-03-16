@@ -21,6 +21,11 @@ export default function Page() {
     goal: '',
   });
 
+  const [totalCalories, setTotalCalories] = useState(0);
+  const [totalProtein, setTotalProtein] = useState(0);
+  const [totalCarbs, setTotalCarbs] = useState(0);
+  const [totalFat, setTotalFat] = useState(0);
+
   const { isFetching, data } = useUser();
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -38,9 +43,8 @@ export default function Page() {
   }
 
   const handleGoalSubmit = async ({ age, height, weight, goal }) => {
-    // Here, integrate with Supabase to update the user's profile
-    // Assuming you have a function like `updateUserProfile` to call
     await updateUserProfile({ age, height, weight, goal });
+    await updateNutrition();
     setIsGoalModalOpen(false);
     setUserDetails({ age, height, weight, goal });
     // Fetch and update user data displayed on the page
@@ -80,10 +84,80 @@ export default function Page() {
         .update({ age: age, height: height, weight: weight, goal: goal })
         .eq('id', data.id); // Ensure you have the user's ID
 
+      // if (data[0].goal === 'Lose Weight')
+      //   setTotalCalories(
+      //     66.47 + 13.75 * weight + 5.003 * height - 6.75 * age - 200,
+      //   );
+      // else if (goal === 'Gain Weight')
+      //   setTotalCalories(
+      //     66.47 + 13.75 * weight + 5.003 * height - 6.75 * age + 200,
+      //   );
+      // else
+      //   setTotalCalories(66.47 + 13.75 * weight + 5.003 * height - 6.75 * age);
+
       if (error) throw new Error(error.message);
     } catch (error) {
       console.error('Failed to update user profile:', error.message);
       // Consider setting an error state here and displaying it in your UI
+    }
+  };
+
+  const updateNutrition = async () => {
+    // Assuming 'weight', 'height', and 'age' are fetched and up-to-date
+    const newTotalCalories =
+      userDetails.goal === 'Lose Weight'
+        ? Math.round(
+            66.47 +
+              13.75 * userDetails.weight +
+              5.003 * userDetails.height -
+              6.75 * userDetails.age -
+              200,
+          )
+        : userDetails.goal === 'Gain Weight'
+        ? Math.round(
+            66.47 +
+              13.75 * userDetails.weight +
+              5.003 * userDetails.height -
+              6.75 * userDetails.age +
+              200,
+          )
+        : Math.round(
+            66.47 +
+              13.75 * userDetails.weight +
+              5.003 * userDetails.height -
+              6.75 * userDetails.age,
+          );
+
+    const newTotalProtein = Math.round(newTotalCalories * 0.3);
+    const newTotalCarbs = Math.round(newTotalCalories * 0.5);
+    const newTotalFat = Math.round(newTotalCalories * 0.2);
+
+    // Update state
+    setTotalCalories(newTotalCalories);
+    setTotalProtein(newTotalProtein);
+    setTotalCarbs(newTotalCarbs);
+    setTotalFat(newTotalFat);
+    console.log('Updating nutrition in Supabase', {
+      newTotalCalories,
+      newTotalProtein,
+      newTotalCarbs,
+      newTotalFat,
+    });
+
+    // update Supabase, using the new values directly
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        total_calories: Math.round(newTotalCalories),
+        total_protein: Math.round(newTotalProtein),
+        total_carbs: Math.round(newTotalCarbs),
+        total_fat: Math.round(newTotalFat),
+      })
+      .eq('id', data.id); // Make sure to target the correct profile by ID
+
+    if (error) {
+      console.error('Failed to update nutrition profile:', error.message);
+      // Handle error
     }
   };
 
