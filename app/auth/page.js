@@ -8,6 +8,14 @@ import { supabaseBrowser } from '@/lib/supabase/browser';
 import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthComponent />
+    </Suspense>
+  );
+}
+
+function AuthComponent() {
   const params = useSearchParams();
   const next = params.get('next');
   const handleLoginWithOAuth = (provider) => {
@@ -27,12 +35,11 @@ export default function Page() {
       <div className="w-96 h-80 rounded-3xl border p-5 relative bg-slate-800 flex flex-col items-center mt-32 z-10 relative">
         <div className="flex items-center gap-2">
           <KeyRound color="gray" />
-          <h1 className="text-xl font-bol fod text-gray-300">
+          <h1 className="text-xl font-bold text-gray-300">
             Welcome to Calobro
           </h1>
         </div>
-        {/* Center the image and reduce vertical spacing */}
-        <div className=" flex justify-center items-center">
+        <div className="flex justify-center items-center">
           <Image
             src="/ios/256.png"
             width={150}
@@ -41,16 +48,14 @@ export default function Page() {
           />
         </div>
         <p className="text-sm text-gray-300">Register / Sign In Today 👇</p>
-        <Suspense>
-          <Button
-            className="w-full flex items-center gap-2 mt-5"
-            variant="outline"
-            onClick={() => handleLoginWithOAuth('google')}
-          >
-            <FcGoogle />
-            Google
-          </Button>
-        </Suspense>
+        <Button
+          className="w-full flex items-center gap-2 mt-5"
+          variant="outline"
+          onClick={() => handleLoginWithOAuth('google')}
+        >
+          <FcGoogle />
+          Google
+        </Button>
       </div>
     </div>
   );
