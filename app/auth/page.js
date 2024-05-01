@@ -18,13 +18,19 @@ export default function Page() {
 function AuthComponent() {
   const params = useSearchParams();
   const next = params.get('next');
+  const baseUrl =
+    location.hostname === 'localhost'
+      ? 'http://localhost:3000'
+      : 'https://calobro.vercel.app';
+
   const handleLoginWithOAuth = (provider) => {
     const supabase = supabaseBrowser();
 
     supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: location.origin + '/auth/callback?next=' + next,
+        // redirectTo: location.origin + '/auth/callback?next=' + next,
+        redirectTo: `${baseUrl}/auth/callback?next=${next}`,
       },
     });
   };
