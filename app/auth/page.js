@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { KeyRound, Google } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
@@ -41,14 +41,16 @@ export default function Page() {
           />
         </div>
         <p className="text-sm text-gray-300">Register / Sign In Today 👇</p>
-        <Button
-          className="w-full flex items-center gap-2 mt-5"
-          variant="outline"
-          onClick={() => handleLoginWithOAuth('google')}
-        >
-          <FcGoogle />
-          Google
-        </Button>
+        <Suspense>
+          <Button
+            className="w-full flex items-center gap-2 mt-5"
+            variant="outline"
+            onClick={() => handleLoginWithOAuth('google')}
+          >
+            <FcGoogle />
+            Google
+          </Button>
+        </Suspense>
       </div>
     </div>
   );
