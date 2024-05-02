@@ -58,14 +58,14 @@ export default function Page() {
         style={{ top: '5%' }}
       ></div>
       <div className="flex items-center justify-around p-4 mt-2 -mb-4 w-full max-w-xl">
-        <div className="text-center mx-8">
+        <div className="text-center ">
           <p className="text-md font-bold text-gray-700">
             {data.eaten || '1271'}
           </p>
           <p className="font-light text-md">Eaten</p>
         </div>
-        <div className="text-center mx-2 flex-shrink">
-          <div className="pl-5 pr-5">
+        <div className="text-center flex-shrink">
+          <div className="w-32">
             <CircularProgressbarWithChildren
               value={caloriePercentage}
               strokeWidth={3}
@@ -90,7 +90,7 @@ export default function Page() {
             </CircularProgressbarWithChildren>
           </div>
         </div>
-        <div className="text-center mx-8">
+        <div className="text-center">
           <p className="text-md font-bold text-gray-700">
             {data.total || '2340'}
           </p>
@@ -112,7 +112,7 @@ export default function Page() {
         </div>
       </div>
       {/* BOTTOM DIV */}
-      <div className="fixed inset-x-6 bottom-0 top-1/2 bg-lime-200 rounded-t-3xl overflow-hidden flex flex-col items-center p-4 space-y-4 overflow-y-auto mb-28">
+      <div className="fixed inset-x-6 bottom-0 top-1/2 bg-lime-200 rounded-t-3xl overflow-hidden flex flex-col items-center p-4 space-y-4 overflow-y-auto mb-24 mt-6">
         {/* Breakfast */}
         <div className="bg-lime-100 rounded-lg shadow pt-3 pb-3 pl-4 pr-4 w-full ">
           <h2 className="font-bold text-gray-700 text-md mb-2 ">
