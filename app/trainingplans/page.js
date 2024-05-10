@@ -1,23 +1,35 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Zap } from 'lucide-react';
 
 export default function Page() {
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
+  const [showMessage, setShowMessage] = useState(false); // FOR DEMO PURPOSES
   const now = new Date();
   const options = { weekday: 'short', month: 'short', day: 'numeric' };
   const dateString = now.toLocaleDateString('en-US', options);
 
   const handleSearch = async () => {
-    const result = await fetchResultsFromAPI(query);
-    setSearchResult(result);
+    // const result = await fetchResultsFromAPI(query);
+    // setSearchResult(result);
+    setShowMessage(true); // FOR DEMO PURPOSES
   };
 
   return (
     <div className="flex flex-col items-center relative mb-40">
       <div className="profile-container flex flex-col items-center animate-fade z-10 relative">
         <h1 className="font-bold text-xl bg-white px-2">🏋️ Ask Calobro</h1>
+        <Link href="/subscription">
+          <div className="p-2 rounded-lg bg-orange-400 pl-5 pr-5 text-xs mt-2 mb-2 font-semibold">
+            Upgrade Plan
+            <span className="flex flex-col items-center">
+              <Zap color="yellow" />
+            </span>
+          </div>
+        </Link>
         <p className="text-md py-1">{dateString}</p>
       </div>
       {/* Horizontal Line */}
@@ -50,11 +62,13 @@ export default function Page() {
           </button>
         </div>
       </div>
-      <div className="m-8">
-        You have eaten an extra 155 calories today! You can burn it off by
-        walking for 28 minutes, or going for a slow jog for 11 minutes.
-      </div>
-      <h1 className="font-bold">🔥 Top deals around you</h1>
+      {showMessage && (
+        <div className="m-6">
+          You have eaten an extra 155 calories today! You can burn it off by
+          walking for 28 minutes, or going for a slow jog for 11 minutes.
+        </div>
+      )}
+      <h1 className="font-bold mt-6">🔥 Top deals around you</h1>
       <div className="flex flex-col items-center mt-2 space-y-2 w-full px-2">
         <div className="flex items-center bg-orange-100 border-2 border-orange-300 rounded-lg w-full p-4 relative">
           <Image
