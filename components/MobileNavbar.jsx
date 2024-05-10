@@ -1,7 +1,13 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Home, Camera, Zap, PersonStanding, Dumbbell } from 'lucide-react';
+import {
+  Home,
+  Camera,
+  PersonStanding,
+  Dumbbell,
+  CookingPot,
+} from 'lucide-react';
 
 const MobileNavbar = () => {
   const router = useRouter(); // Use useRouter to access the current route
@@ -11,7 +17,7 @@ const MobileNavbar = () => {
     router.pathname === path ? '#f07400' : '#FFF';
 
   return (
-    <div className="fixed inset-x-0 bottom-0 bg-gray-800 text-white text-center py-5 flex justify-around items-center z-50 divide-x divide-gray-600">
+    <div className="fixed inset-x-0 bottom-0 bg-gray-800 text-white text-center py-7 flex justify-around items-center z-50 divide-x divide-gray-600">
       <div className="flex flex-grow justify-center items-center border-r border-gray-600">
         <Link href="/dashboard">
           <span className="flex flex-col items-center">
@@ -34,9 +40,9 @@ const MobileNavbar = () => {
         </Link>
       </div>
       <div className="flex flex-grow justify-center items-center border-r border-gray-600">
-        <Link href="/subscription">
+        <Link href="/recipe">
           <span className="flex flex-col items-center">
-            <Zap color={getIconColor('/subscription')} />
+            <CookingPot color={getIconColor('/recipe')} />
           </span>
         </Link>
       </div>
